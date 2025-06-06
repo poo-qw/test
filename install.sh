@@ -1,21 +1,38 @@
 #!/bin/bash
 
-# نصب وابستگی‌های بک‌اند
-echo "Installing backend dependencies..."
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+echo "🚀 VPN Rewarder Installer"
+echo "--------------------------"
 
-# راه‌اندازی سرور بک‌اند
-echo "Running backend..."
-nohup flask run --host=0.0.0.0 --port=5000 &
+# نصب وابستگی‌ها (درصورت نیاز)
+command -v node >/dev/null 2>&1 || {
+  echo "❌ Node.js نصب نیست. لطفاً اول Node.js و npm رو نصب کن."
+  exit 1
+}
 
-# نصب وابستگی‌های فرانت‌اند
-echo "Installing frontend dependencies..."
-cd ../frontend
-rm -rf node_modules package-lock.json dist
+# کلون یا دانلود پروژه در صورت نیاز
+# git clone https://github.com/USERNAME/REPO.git vpnrewarder
+
+# فرض: پروژه قبلاً دانلود شده و در همین مسیر هست
+cd vpnrewarder || {
+  echo "❌ پوشه پروژه پیدا نشد!"
+  exit 1
+}
+
+# نصب و build فرانت‌اند
+echo "🔧 نصب فرانت‌اند..."
+cd frontend
 npm install
 npm run build
+cd ..
 
-echo "Setup complete. Backend on :5000, Frontend built in ./frontend/dist"
+# نصب بک‌اند
+echo "🔧 نصب بک‌اند..."
+cd backend
+npm install
+cd ..
+
+# اجرا
+echo ""
+echo "✅ نصب کامل شد!"
+echo "🌐 برای اجرا:"
+echo "cd backend && npm start"
