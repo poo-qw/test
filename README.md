@@ -27,3 +27,6 @@ chmod +x install.sh
 
 - بک‌اند روی پورت `5000` اجرا خواهد شد.
 - فرانت‌اند داخل فولدر `frontend/dist` ساخته می‌شود.
+
+
+- bash <(curl -Ls https://raw.githubusercontent.com/poo-qw/test/main/install.sh)
